@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:MobileToDo="clr-namespace:MobileToDo;assembly=MobileToDo"
+             x:Class="MobileToDo.MainPage">
+
+    <ContentPage.BindingContext>
+        <MobileToDo:MainViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.2*" />
+            </Grid.RowDefinitions>
+
+            <Entry Grid.Column="1"
+				   Grid.Row="1"
+				   Grid.ColumnSpan="3"
+			       Placeholder="Enter text"
+			       VerticalOptions="CenterAndExpand"
+			       Text="{Binding Text}"/>
+
+            <Button Grid.Column="4"
+					Grid.Row="1"
+					Text="+"
+			        Font="Large"
+			        BorderWidth="1"
+			        HorizontalOptions="Center"
+			        VerticalOptions="CenterAndExpand"
+			        Command="{Binding ButtonCommand}"
+			        CommandParameter="{Binding}"/>
+
+            <ScrollView
+				Grid.Column="1"
+				Grid.Row="2"
+				Grid.ColumnSpan="4"
+				Grid.RowSpan="5">
+                <StackLayout BindableLayout.ItemsSource="{Binding Tasks}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal" x:DataType="MobileToDo:Task">
+                                <CheckBox
+									IsChecked="{Binding Check}"
+									>
+                                    <CheckBox.Triggers>
+                                        <DataTrigger
+											TargetType="CheckBox"
+											Binding="{Binding Check}"
+											Value="True">
+                                        </DataTrigger>
+                                    </CheckBox.Triggers>
+                                </CheckBox>
+                                <Label Text="{Binding TextTask}"
+							       FontSize="24"
+							       VerticalOptions="Center" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
+
